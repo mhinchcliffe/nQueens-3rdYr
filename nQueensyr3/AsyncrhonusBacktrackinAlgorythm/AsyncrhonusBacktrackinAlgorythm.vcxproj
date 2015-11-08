@@ -118,7 +118,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Agent.cpp" />
+    <ClCompile Include="AsyncBackTrackAlg.cpp" />
+    <ClCompile Include="EntityManager.cpp" />
+    <ClCompile Include="Messenger.cpp" />
     <ClCompile Include="Source.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Agent.h" />
+    <ClInclude Include="AsyncBackTrackAlg.h" />
+    <ClInclude Include="EntityManager.h" />
+    <ClInclude Include="Common.h" />
+    <ClInclude Include="Messenger.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
