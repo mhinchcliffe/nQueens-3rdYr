@@ -12,12 +12,13 @@ protected:
 	// - Agents Values - //
 	int mAssaignment;    // The agents current assignment
 	int mPriority;       // Generally arbitrary, 
-
+	int mNumPosibleAssignments;
+	int mUID;
 	bool mNeedsUpdating; //Wether or not this agent has recived a message since its last update
 
 	// - Update Agent Constraints - //
-	void AddToAgentView(SAgentV);
-	void AddNoGood(int);
+	void AddToAgentView(SAgentV newView);
+	void AddNoGood(int nogood);
 	bool FindNewAssignment();
 
 public:
@@ -25,8 +26,9 @@ public:
 	~CAgent();
 
 	bool CheckConsistent();
+	bool CheckConsistent(int i);
 	bool GenerateNoGood();
-	void ReciveMessage(SMessage);
+	void ReciveMessage(SMessage message);
 
 	// - Getters - //
 	bool NeedsUpdating();

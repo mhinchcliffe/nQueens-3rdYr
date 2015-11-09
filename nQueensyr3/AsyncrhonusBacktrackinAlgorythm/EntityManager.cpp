@@ -17,7 +17,7 @@ void CEntityManager::UpdateMessages()
 
 int CEntityManager::GetNumAgents()
 {
-	return mAgentList.size;
+	return mAgentList.size();
 }
 
 std::vector<CAgent>* CEntityManager::GetAgentList()
