@@ -15,14 +15,14 @@ protected:
 	int mNumPosibleAssignments;
 	int mUID;
 	bool mNeedsUpdating; //Wether or not this agent has recived a message since its last update
-
+	CMessenger* mMessenger;
 	// - Update Agent Constraints - //
 	void AddToAgentView(SAgentV newView);
 	void AddNoGood(int nogood);
 	bool FindNewAssignment();
 
 public:
-	CAgent(int Priority);
+	CAgent(int Priority, CMessenger* messenger);
 	~CAgent();
 
 	bool CheckConsistent();

@@ -50,19 +50,21 @@ bool CAgent::FindNewAssignment()
 		if (lNewAssignmentFound)
 		{
 			mAssaignment = i;
+			mMessenger->AddMessage(mUID, mUID, Ok, mAssaignment);
 			return true;
 		}
 	}
 	return false;
 }
 
-CAgent::CAgent(int Priority)
+CAgent::CAgent(int Priority, CMessenger * messenger)
 {
 	mAssaignment = 1;
 	mPriority = Priority;
 	mNeedsUpdating = true;
 	mNumPosibleAssignments = 4;
 	mUID = Priority;
+	mMessenger = messenger;
 }
 
 CAgent::~CAgent()
@@ -112,7 +114,37 @@ bool CAgent::CheckConsistent(int value)
 
 bool CAgent::GenerateNoGood()
 {
-	return false;
+	int lLowPriAgent=0;
+	for (auto i : mAgentView)
+	{
+		if (i.Value == mAssaignment)
+		{
+			if (i.UID > lLowPriAgent)
+			{
+				lLowPriAgent = i.UID;
+			}
+		}
+	}
+	for (auto i : mAgentView)
+	{
+		int lPriorityDiff = abs(i.UID - mPriority);
+		if (abs(i.Value - mAssaignment) == lPriorityDiff)
+		{
+			if (i.UID > lLowPriAgent)
+			{
+				lLowPriAgent = i.UID;
+			}
+		}
+	}
+	if (lLowPriAgent == 0)
+	{
+		return false;
+	}
+	else
+	{
+		mMessenger->AddMessage(mUID, lLowPriAgent, NoGood, mAssaignment);
+		return true;
+	}
 }
 
 bool CAgent::NeedsUpdating()

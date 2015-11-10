@@ -7,15 +7,20 @@ class CEntityManager
 {
 private:
 	std::map<int, std::deque<SMessage>> mAgentMessageList;// uidto, double endded que of messages to that uid
-	std::vector<CAgent> mAgentList;
+	std::vector<CAgent*> mAgentList;
+	CMessenger* mMessenger;
+	void mUpdateMessageList();
+	
 public:
-	CEntityManager();
+
+	CEntityManager(int NumAgents);
 	~CEntityManager();
+
 	// - Update Agents - //
 	void UpdateMessages();
 
 	// - Getters - //
 	int GetNumAgents();
-	std::vector<CAgent>* GetAgentList();
+	std::vector<CAgent*>* GetAgentList();
 };
 

@@ -15,9 +15,16 @@ struct SMessage
 
 class CMessenger
 {
+	std::deque<SMessage> mMessageList;
 
 public:
 	CMessenger();
 	~CMessenger();
+
+	void AddMessage(SMessage newMessage);
+	void AddMessage(int to, int from, eMessageType type, int message);
+	void ClearMessageList();
+	bool IsMessgeListEmpty();
+	SMessage GetNextMessage();
 };
 
