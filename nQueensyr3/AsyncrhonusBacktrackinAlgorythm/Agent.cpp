@@ -15,6 +15,21 @@ void CAgent::AddToAgentView(SAgentV newView)
 	mAgentView.push_back(newView);
 }
 
+void CAgent::RemoveFromAgentView(int agent)
+{
+	/*for (auto i : mAgentView)
+	{
+		if (i.UID == agent)
+		{
+			auto it = std::find(mAgentView.begin(), mAgentView.end(), i);
+			if (it != mAgentView.end())
+			{
+				mAgentView.erase(it);
+			}
+		}
+	}*/
+}
+
 void CAgent::AddNoGood(int nogood)
 {
 	for (auto i : mNoGoodsList)
@@ -142,7 +157,8 @@ bool CAgent::GenerateNoGood()
 	}
 	else
 	{
-		mMessenger->AddMessage(mUID, lLowPriAgent, NoGood, mAssaignment);
+		mMessenger->AddMessage(lLowPriAgent, mUID, NoGood, mAssaignment);
+		RemoveFromAgentView(lLowPriAgent);
 		return true;
 	}
 }

@@ -18,8 +18,9 @@ protected:
 	CMessenger* mMessenger;
 	// - Update Agent Constraints - //
 	void AddToAgentView(SAgentV newView);
+	void RemoveFromAgentView(int agent);
 	void AddNoGood(int nogood);
-	bool FindNewAssignment();
+	
 
 public:
 	CAgent(int Priority, CMessenger* messenger);
@@ -28,6 +29,7 @@ public:
 	bool CheckConsistent();
 	bool CheckConsistent(int i);
 	bool GenerateNoGood();
+	bool FindNewAssignment();
 	void ReciveMessage(SMessage message);
 
 	// - Getters - //

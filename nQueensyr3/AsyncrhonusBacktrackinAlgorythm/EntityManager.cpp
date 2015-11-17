@@ -32,24 +32,43 @@ CEntityManager::CEntityManager(int NumAgents)
 	{
 		CAgent*temp = new CAgent(i,mMessenger);
 		mAgentList.push_back(temp);
-		mAgentMessageList.emplace(i);
+		std::deque<SMessage> empty;
+		mAgentMessageList[i] = empty;
 	}
 }
 
 
 CEntityManager::~CEntityManager()
 {
+	if (mMessenger != nullptr)
+	{
+		delete mMessenger;
+		mMessenger = nullptr;
+	}
+
+	for (auto i : mAgentList)
+	{
+		if (i != nullptr)
+		{
+			delete i;
+			i = nullptr;
+		}
+	}
 }
 
-void CEntityManager::UpdateMessages()
+bool CEntityManager::UpdateMessages()
 {
+	bool lNotEmpty = false;
+	mUpdateMessageList();
 	for (auto i : mAgentList)
 	{
 		if (!mAgentMessageList[i->GetPriority()].empty())
 		{
+			lNotEmpty = true;
 			i->ReciveMessage(mAgentMessageList[i->GetPriority()][0]);
 		}
 	}
+	return lNotEmpty;
 }
 
 int CEntityManager::GetNumAgents()

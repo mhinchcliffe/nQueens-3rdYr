@@ -17,7 +17,7 @@ public:
 	~CEntityManager();
 
 	// - Update Agents - //
-	void UpdateMessages();
+	bool UpdateMessages();
 
 	// - Getters - //
 	int GetNumAgents();

@@ -6,15 +6,18 @@ class CAsyncBackTrackAlg
 {
 private:
 	bool mSolutionExists;
+	CEntityManager* mpEntitityManager;
 
 public:
-	
 	CAsyncBackTrackAlg();
 	~CAsyncBackTrackAlg();
 	// - Main Function - //
-	bool Update(std::vector<CAgent>* AgentList);
+	bool Update();
 
 	// - Getter - //
 	bool SolutionExists();
+
+	// - Setter - //
+	void SetCurrentProblem(CEntityManager* problem);
 };
 
