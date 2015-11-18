@@ -5,10 +5,8 @@
 bool CAsyncBackTrackAlg::Update()
 {
 	if (mpEntitityManager->UpdateMessages())
-	{
-		std::vector<CAgent*>* lTempList = mpEntitityManager->GetAgentList();
-		
-		for (auto i: *lTempList)
+	{	
+		for (auto i: *mpEntitityManager->GetAgentList())
 		{
 			if (i->NeedsUpdating())
 			{

@@ -96,6 +96,7 @@ CAgent::CAgent(int Priority,int numAssignments,int UID, CMessenger * messenger)
 	mNumPosibleAssignments = numAssignments;
 	mUID = UID;
 	mMessenger = messenger;
+	mMessenger->AddMessage(mUID, mUID, Ok, mAssaignment);
 }
 
 CAgent::~CAgent()
