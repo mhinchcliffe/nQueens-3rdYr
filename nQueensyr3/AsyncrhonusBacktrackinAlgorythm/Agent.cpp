@@ -17,17 +17,13 @@ void CAgent::AddToAgentView(SAgentV newView)
 
 void CAgent::RemoveFromAgentView(int agent)
 {
-	/*for (auto i : mAgentView)
+	for (int i = 0; i < mAgentView.size();i++)
 	{
-		if (i.UID == agent)
+		if (mAgentView[i].UID == agent)
 		{
-			auto it = std::find(mAgentView.begin(), mAgentView.end(), i);
-			if (it != mAgentView.end())
-			{
-				mAgentView.erase(it);
-			}
+			mAgentView.erase(mAgentView.begin() + i);
 		}
-	}*/
+	}
 }
 
 void CAgent::AddNoGood(int nogood)
