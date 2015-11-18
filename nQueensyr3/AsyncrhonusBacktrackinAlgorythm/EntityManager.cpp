@@ -30,10 +30,10 @@ CEntityManager::CEntityManager(int NumAgents)
 	mMessenger = new CMessenger;
 	for (int i = 0; i < NumAgents; i++)
 	{
-		CAgent*temp = new CAgent(i,mMessenger);
+		CAgent*temp = new CAgent(i, NumAgents, i, mMessenger);
 		mAgentList.push_back(temp);
 		std::deque<SMessage> empty;
-		mAgentMessageList[i] = empty;
+		mAgentMessageList.insert_or_assign(i, empty);
 	}
 }
 
@@ -66,6 +66,7 @@ bool CEntityManager::UpdateMessages()
 		{
 			lNotEmpty = true;
 			i->ReciveMessage(mAgentMessageList[i->GetPriority()][0]);
+			mAgentMessageList[i->GetPriority()].pop_front();
 		}
 	}
 	return lNotEmpty;

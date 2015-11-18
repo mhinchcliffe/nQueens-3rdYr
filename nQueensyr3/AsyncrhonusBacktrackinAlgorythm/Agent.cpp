@@ -42,11 +42,26 @@ void CAgent::AddNoGood(int nogood)
 	mNoGoodsList.push_back(nogood);
 }
 
+bool CAgent::CheckIfAgentConsistent(SAgentV agent)
+{
+	if (agent.Value == mAssaignment)
+	{
+		return false;
+	}
+
+	int lPriorityDiff = abs(agent.UID - mPriority);
+	if (abs(agent.Value - mAssaignment) == lPriorityDiff)
+	{
+		return false;
+	}
+	return true;
+}
+
 bool CAgent::FindNewAssignment()
 {
-	bool lNewAssignmentFound;
+	bool lNewAssignmentFound = false;
 
-	for (int i = 1; i <= mNumPosibleAssignments; i++)
+	for (int i = 0; i <= mNumPosibleAssignments; i++)
 	{
 		lNewAssignmentFound = true;
 		//check new assignment against nogood list
@@ -62,23 +77,24 @@ bool CAgent::FindNewAssignment()
 		{
 			lNewAssignmentFound = CheckConsistent(i);
 		}
+		//found new assignment
 		if (lNewAssignmentFound)
 		{
 			mAssaignment = i;
 			mMessenger->AddMessage(mUID, mUID, Ok, mAssaignment);
-			return true;
+			return lNewAssignmentFound;
 		}
 	}
-	return false;
+	return lNewAssignmentFound;//failed to find new assignment
 }
 
-CAgent::CAgent(int Priority, CMessenger * messenger)
+CAgent::CAgent(int Priority,int numAssignments,int UID, CMessenger * messenger)
 {
-	mAssaignment = 1;
+	mAssaignment = 0;
 	mPriority = Priority;
 	mNeedsUpdating = true;
-	mNumPosibleAssignments = 4;
-	mUID = Priority;
+	mNumPosibleAssignments = numAssignments;
+	mUID = UID;
 	mMessenger = messenger;
 }
 
@@ -90,49 +106,35 @@ bool CAgent::CheckConsistent()
 {
 	for (auto i : mAgentView)
 	{
-		if (i.Value == mAssaignment)
+		if (CheckIfAgentConsistent(i))
 		{
-			return false;
+			return false;//vertical clash
 		}
-	}
-	for (auto i : mAgentView)
-	{
-		int lPriorityDiff = abs(i.UID - mPriority);
-		if (abs(i.Value-mAssaignment)==lPriorityDiff)
-		{
-			return false;
-		}
-	}
-	return true;
+	}	
+	mNeedsUpdating = false;
+	return true;//no clash
 }
 
 bool CAgent::CheckConsistent(int value)
 {
 	for (auto i : mAgentView)
 	{
-		if (i.Value == value)
+		if (!CheckIfAgentConsistent(i))
 		{
 			return false;
 		}
 	}
-	for (auto i : mAgentView)
-	{
-		//if the diffrence in rows is equal to the diffrence in colmns, then the piece can be taken diagonally
-		int lPriorityDiff = abs(i.UID - value);
-		if (abs(i.Value - value) == lPriorityDiff)
-		{
-			return false;
-		}
-	}
+	mNeedsUpdating = false;
 	return true;
 }
 
 bool CAgent::GenerateNoGood()
 {
 	int lLowPriAgent=0;
+
 	for (auto i : mAgentView)
 	{
-		if (i.Value == mAssaignment)
+		if (!CheckIfAgentConsistent(i))
 		{
 			if (i.UID > lLowPriAgent)
 			{
@@ -140,17 +142,7 @@ bool CAgent::GenerateNoGood()
 			}
 		}
 	}
-	for (auto i : mAgentView)
-	{
-		int lPriorityDiff = abs(i.UID - mPriority);
-		if (abs(i.Value - mAssaignment) == lPriorityDiff)
-		{
-			if (i.UID > lLowPriAgent)
-			{
-				lLowPriAgent = i.UID;
-			}
-		}
-	}
+
 	if (lLowPriAgent == 0)
 	{
 		return false;

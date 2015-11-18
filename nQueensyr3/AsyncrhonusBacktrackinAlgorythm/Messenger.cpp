@@ -22,8 +22,9 @@ void CMessenger::AddMessage(int to, int from, eMessageType type, int message)
 	newMessage.UIDto = to;
 	newMessage.UIDfrom = from;
 	newMessage.Type = type;
-	newMessage.Message.UID = to;
+	newMessage.Message.UID = from;
 	newMessage.Message.Value = message;
+	mMessageList.push_back(newMessage);
 }
 
 void CMessenger::ClearMessageList()
@@ -42,7 +43,6 @@ bool CMessenger::IsMessgeListEmpty()
 
 SMessage CMessenger::GetNextMessage()
 {
-	
 	if (!IsMessgeListEmpty())
 	{
 		return mMessageList[0];

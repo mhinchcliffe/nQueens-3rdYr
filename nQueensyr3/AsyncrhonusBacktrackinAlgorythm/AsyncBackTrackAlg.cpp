@@ -10,7 +10,7 @@ bool CAsyncBackTrackAlg::Update()
 		
 		for (auto i: *lTempList)
 		{
-			if (!i->NeedsUpdating())
+			if (i->NeedsUpdating())
 			{
 				if (!i->CheckConsistent())
 				{
@@ -32,6 +32,7 @@ bool CAsyncBackTrackAlg::Update()
 			}
 		}
 	}
+	else mSolved= true;
 	return mSolutionExists;
 }
 
@@ -40,13 +41,26 @@ bool CAsyncBackTrackAlg::SolutionExists()
 	return mSolutionExists;
 }
 
+bool CAsyncBackTrackAlg::Solved()
+{
+	return mSolved;
+}
+
+void CAsyncBackTrackAlg::PrintSolution()
+{
+	
+}
+
 void CAsyncBackTrackAlg::SetCurrentProblem(CEntityManager * problem)
 {
 	mpEntitityManager = problem;
 }
 
-CAsyncBackTrackAlg::CAsyncBackTrackAlg()
+CAsyncBackTrackAlg::CAsyncBackTrackAlg(CEntityManager * problem)
 {
+	mpEntitityManager = problem;
+	mSolutionExists = true;
+	mSolved = false;
 }
 
 

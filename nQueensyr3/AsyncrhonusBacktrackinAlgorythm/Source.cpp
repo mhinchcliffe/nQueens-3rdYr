@@ -3,5 +3,6 @@
 
 int main()
 {
+	std::cout << "hey"<<std::endl;
 	system("pause");
 }
