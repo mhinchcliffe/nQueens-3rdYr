@@ -35,6 +35,6 @@ public:
 	// - Getters - //
 	bool NeedsUpdating();
 	int GetPriority();
-
+	int GetAssignment();
 };
 

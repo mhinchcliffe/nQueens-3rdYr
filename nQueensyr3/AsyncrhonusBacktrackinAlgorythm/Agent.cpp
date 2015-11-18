@@ -166,6 +166,11 @@ int CAgent::GetPriority()
 	return mPriority;
 }
 
+int CAgent::GetAssignment()
+{
+	return mAssaignment;
+}
+
 void CAgent::ReciveMessage(SMessage message)
 {
 	switch (message.Type)

@@ -46,7 +46,11 @@ bool CAsyncBackTrackAlg::Solved()
 
 void CAsyncBackTrackAlg::PrintSolution()
 {
-	
+	for (auto i : *mpEntitityManager->GetAgentList())
+	{
+		std::cout << "piece : " << i->GetPriority() << " is in position :  " <<
+			i->GetAssignment() << std::endl;
+	}
 }
 
 void CAsyncBackTrackAlg::SetCurrentProblem(CEntityManager * problem)
