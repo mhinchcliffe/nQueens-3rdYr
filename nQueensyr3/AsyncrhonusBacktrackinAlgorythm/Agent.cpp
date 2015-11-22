@@ -38,15 +38,15 @@ void CAgent::AddNoGood(int nogood)
 	mNoGoodsList.push_back(nogood);
 }
 
-bool CAgent::CheckIfAgentConsistent(SAgentV agent)
+bool CAgent::CheckIfAgentConsistent(SAgentV *agent)
 {
-	if (agent.Value == mAssaignment)
+	if (agent->Value == mAssaignment)
 	{
 		return false;
 	}
 
-	int lPriorityDiff = abs(agent.UID - mPriority);
-	if (abs(agent.Value - mAssaignment) == lPriorityDiff)
+	int lPriorityDiff = abs(agent->UID - mPriority);
+	if (abs(agent->Value - mAssaignment) == lPriorityDiff)
 	{
 		return false;
 	}
@@ -71,6 +71,7 @@ bool CAgent::FindNewAssignment()
 		//check new assignment against agent view
 		if (lNewAssignmentFound)
 		{
+			mAssaignment = i;
 			lNewAssignmentFound = CheckConsistent(i);
 		}
 		//found new assignment
@@ -103,7 +104,7 @@ bool CAgent::CheckConsistent()
 {
 	for (auto i : mAgentView)
 	{
-		if (CheckIfAgentConsistent(i))
+		if (!CheckIfAgentConsistent(&i))
 		{
 			return false;//vertical clash
 		}
@@ -116,7 +117,7 @@ bool CAgent::CheckConsistent(int value)
 {
 	for (auto i : mAgentView)
 	{
-		if (!CheckIfAgentConsistent(i))
+		if (!CheckIfAgentConsistent(&i))
 		{
 			return false;
 		}
@@ -131,7 +132,7 @@ bool CAgent::GenerateNoGood()
 
 	for (auto i : mAgentView)
 	{
-		if (!CheckIfAgentConsistent(i))
+		if (!CheckIfAgentConsistent(&i))
 		{
 			if (i.UID > lLowPriAgent)
 			{

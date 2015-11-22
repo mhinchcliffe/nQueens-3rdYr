@@ -45,8 +45,9 @@ SMessage CMessenger::GetNextMessage()
 {
 	if (!IsMessgeListEmpty())
 	{
-		return mMessageList[0];
+		SMessage temp= mMessageList[0];
 		mMessageList.pop_front();
+		return temp;
 	}
 	SMessage Empty;
 	Empty.UIDto = -1;

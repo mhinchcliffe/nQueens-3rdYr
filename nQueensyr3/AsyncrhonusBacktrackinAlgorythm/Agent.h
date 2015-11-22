@@ -20,7 +20,7 @@ protected:
 	void AddToAgentView(SAgentV newView);
 	void RemoveFromAgentView(int agent);
 	void AddNoGood(int nogood);
-	bool CheckIfAgentConsistent(SAgentV agent);//checks to see if an agents assignment is incompatible with this agents values
+	bool CheckIfAgentConsistent(SAgentV *agent);//checks to see if an agents assignment is incompatible with this agents values
 
 public:
 	CAgent(int Priority,int NumAssignments, int UID,CMessenger* messenger);
