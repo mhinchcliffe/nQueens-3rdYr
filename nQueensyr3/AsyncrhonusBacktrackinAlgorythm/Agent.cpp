@@ -57,7 +57,7 @@ bool CAgent::FindNewAssignment()
 {
 	bool lNewAssignmentFound = false;
 
-	for (int i = 0; i <= mNumPosibleAssignments; i++)
+	for (int i = 0; i < mNumPosibleAssignments; i++)
 	{
 		lNewAssignmentFound = true;
 		//check new assignment against nogood list
@@ -79,10 +79,10 @@ bool CAgent::FindNewAssignment()
 		{
 			mAssaignment = i;
 			mMessenger->AddMessage(mUID, mUID, Ok, mAssaignment);
-			return lNewAssignmentFound;
+			return true;
 		}
 	}
-	return lNewAssignmentFound;//failed to find new assignment
+	return false;//failed to find new assignment
 }
 
 CAgent::CAgent(int Priority,int numAssignments,int UID, CMessenger * messenger)
@@ -141,7 +141,7 @@ bool CAgent::GenerateNoGood()
 		}
 	}
 
-	if (lLowPriAgent == 0)
+	if (lLowPriAgent == mPriority)
 	{
 		return false;
 	}
@@ -168,15 +168,15 @@ int CAgent::GetAssignment()
 	return mAssaignment;
 }
 
-void CAgent::ReciveMessage(SMessage message)
+void CAgent::ReciveMessage(SMessage *message)
 {
-	switch (message.Type)
+	switch (message->Type)
 	{
 		case Ok:
-			AddToAgentView(message.Message);
+			AddToAgentView(message->Message);
 			break;
 		case NoGood:
-			AddNoGood(message.Message.Value);
+			AddNoGood(message->Message.Value);
 		default:
 			break;
 	}

@@ -48,8 +48,12 @@ void CAsyncBackTrackAlg::PrintSolution()
 {
 	for (auto i : *mpEntitityManager->GetAgentList())
 	{
-		std::cout << "piece : " << i->GetPriority() << " is in position :  " <<
-			i->GetAssignment() << std::endl;
+		std::cout << "piece : " << i->GetPriority() << " is in position :  ";
+		for (int j = 0; j < i->GetAssignment(); j++)
+		{
+			std::cout << " ";
+		}
+		std::cout << i->GetAssignment() << std::endl;
 	}
 }
 

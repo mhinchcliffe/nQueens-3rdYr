@@ -30,7 +30,7 @@ public:
 	bool CheckConsistent(int i);
 	bool GenerateNoGood();
 	bool FindNewAssignment();
-	void ReciveMessage(SMessage message);
+	void ReciveMessage(SMessage *message);
 
 	// - Getters - //
 	bool NeedsUpdating();

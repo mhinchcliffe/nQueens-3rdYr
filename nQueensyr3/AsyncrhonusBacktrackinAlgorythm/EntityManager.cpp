@@ -65,9 +65,16 @@ bool CEntityManager::UpdateMessages()
 		if (!mAgentMessageList[i->GetPriority()].empty())
 		{
 			lNotEmpty = true;
-			i->ReciveMessage(mAgentMessageList[i->GetPriority()][0]);
+			SMessage *temp = &mAgentMessageList[i->GetPriority()][0];
+			i->ReciveMessage(temp);
 			mAgentMessageList[i->GetPriority()].pop_front();
 		}
+		//for (auto j : mAgentMessageList[i->GetPriority()])
+		//{
+		//	lNotEmpty = true;
+		//	i->ReciveMessage(&j);
+		//}
+		//mAgentMessageList[i->GetPriority()].clear();
 	}
 	return lNotEmpty;
 }
