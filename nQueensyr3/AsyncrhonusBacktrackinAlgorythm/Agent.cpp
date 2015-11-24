@@ -116,9 +116,9 @@ bool CAgent::CheckConsistent()
 
 bool CAgent::CheckConsistent(int value)
 {
-	for (auto i : mAgentView)
+	for (int i = 0; i < mAgentView.size();i++)
 	{
-		if (!CheckIfAgentConsistent(&i))
+		if (!CheckIfAgentConsistent(&mAgentView[i]))
 		{
 			return false;
 		}
