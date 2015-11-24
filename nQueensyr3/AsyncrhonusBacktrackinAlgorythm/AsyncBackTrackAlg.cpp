@@ -6,18 +6,19 @@ bool CAsyncBackTrackAlg::Update()
 {
 	if (mpEntitityManager->UpdateMessages())
 	{	
-		for (auto i: *mpEntitityManager->GetAgentList())
+		for (int i = 0; i < mpEntitityManager->GetAgentList()->size(); i++)
 		{
-			if (i->NeedsUpdating())
+			CAgent* agent=mpEntitityManager->GetAgent(i);
+			if (agent->NeedsUpdating())
 			{
-				if (!i->CheckConsistent())
+				if (!agent->CheckConsistent())
 				{
-					if (!i->FindNewAssignment())
+					if (!agent->FindNewAssignment())
 					{
-						mSolutionExists = i->GenerateNoGood();
-						while (mSolutionExists&&!i->FindNewAssignment())
+						mSolutionExists = agent->GenerateNoGood();
+						while (mSolutionExists&&!agent->FindNewAssignment())
 						{
-							mSolutionExists = i->GenerateNoGood();
+							mSolutionExists = agent->GenerateNoGood();
 						}
 
 						//exit update if there is no longer a solution

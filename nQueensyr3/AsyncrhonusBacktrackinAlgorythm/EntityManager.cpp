@@ -88,3 +88,8 @@ std::vector<CAgent*>* CEntityManager::GetAgentList()
 {
 	return &mAgentList;
 }
+
+CAgent * CEntityManager::GetAgent(int i)
+{
+	return mAgentList[i];
+}

@@ -22,5 +22,6 @@ public:
 	// - Getters - //
 	int GetNumAgents();
 	std::vector<CAgent*>* GetAgentList();
+	CAgent* GetAgent(int i);
 };
 
