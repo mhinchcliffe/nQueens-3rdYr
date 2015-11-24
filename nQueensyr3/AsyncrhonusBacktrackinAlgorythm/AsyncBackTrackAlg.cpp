@@ -53,7 +53,7 @@ void CAsyncBackTrackAlg::PrintSolution()
 		{
 			std::cout << " ";
 		}
-		std::cout << i->GetAssignment() << std::endl;
+		std::cout << i->GetAssignment()+1 << std::endl;
 	}
 }
 

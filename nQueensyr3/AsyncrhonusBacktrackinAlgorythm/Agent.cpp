@@ -4,11 +4,11 @@
 
 void CAgent::AddToAgentView(SAgentV newView)
 {
-	for (auto i: mAgentView) 
+	for (int i = 0; i < mAgentView.size();i++)
 	{
-		if (i.UID == newView.UID)
+		if (mAgentView[i].UID == newView.UID)
 		{
-			i.Value = newView.Value;
+			mAgentView[i].Value = newView.Value;
 			return;
 		}
 	}
@@ -56,7 +56,7 @@ bool CAgent::CheckIfAgentConsistent(SAgentV *agent)
 bool CAgent::FindNewAssignment()
 {
 	bool lNewAssignmentFound = false;
-
+	int tempassign = mAssaignment;
 	for (int i = 0; i < mNumPosibleAssignments; i++)
 	{
 		lNewAssignmentFound = true;
@@ -82,6 +82,7 @@ bool CAgent::FindNewAssignment()
 			return true;
 		}
 	}
+	mAssaignment = tempassign;
 	return false;//failed to find new assignment
 }
 
@@ -130,13 +131,13 @@ bool CAgent::GenerateNoGood()
 {
 	int lLowPriAgent=0;
 
-	for (auto i : mAgentView)
+	for (int i = 0; i < mAgentView.size();i++)
 	{
-		if (!CheckIfAgentConsistent(&i))
+		if (!CheckIfAgentConsistent(&mAgentView[i]))
 		{
-			if (i.UID > lLowPriAgent)
+			if (mAgentView[i].UID > lLowPriAgent)
 			{
-				lLowPriAgent = i.UID;
+				lLowPriAgent = mAgentView[i].UID;
 			}
 		}
 	}
